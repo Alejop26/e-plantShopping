@@ -255,3 +255,15 @@ body {
     display: flex;
     justify-content: center;
   }
+
+ 
+.cart-count {
+   position: absolute;
+  top : 32px;
+  right: 35px;
+  color: white;
+  font-weight: bold;
+  font-size: 30px;
+  
+  
+}
