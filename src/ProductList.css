@@ -250,3 +250,8 @@ body {
         text-align: center; /* Align text to the center */
       }
   }
+
+  .category-title{
+    display: flex;
+    justify-content: center;
+  }

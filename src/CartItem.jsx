@@ -7,29 +7,52 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
+  
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
+    let total = 0;
+    console.log(cart)
+    cart.forEach(plant => {
+      total += plant.quantity * parseFloat(plant.cost.substring(1))
+    });
+    
+    return total
   };
 
   const handleContinueShopping = (e) => {
-   
+    onContinueShopping(e)
   };
 
+  const handleCheckout = () => {
+    alert('Functionality to be added for future reference');
+  }
 
 
-  const handleIncrement = (item) => {
+
+  const handleIncrement = (product) => {
+    dispatch(updateQuantity({
+      name: product.name,
+      quantity: product.quantity + 1
+    }))
   };
 
-  const handleDecrement = (item) => {
-   
+  const handleDecrement = (product) => {
+    if(product.quantity != 0 ){
+      dispatch(updateQuantity({
+      name: product.name,
+      quantity: product.quantity - 1
+    }))
+    }
   };
 
-  const handleRemove = (item) => {
+  const handleRemove = (product) => {
+    console.log(product )
+    dispatch(removeItem({name: product.name}))
   };
 
   // Calculate total cost based on quantity for an item
-  const calculateTotalCost = (item) => {
+  const calculateTotalCost = (product) => {
+    return (product.quantity * parseFloat(product.cost.substring(1)))
   };
 
   return (
@@ -55,9 +78,9 @@ const CartItem = ({ onContinueShopping }) => {
       </div>
       <div style={{ marginTop: '20px', color: 'black' }} className='total_cart_amount'></div>
       <div className="continue_shopping_btn">
-        <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
+        <button className="get-started-button" onClick={handleContinueShopping}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button className="get-started-button1" onClick={handleCheckout}>Checkout</button>
       </div>
     </div>
   );
