@@ -17,8 +17,7 @@ function ProductList({ onHomeClick }) {
 
     
 
-
-    
+    const cartItemNames = new Set(cartItems.map(item => item.name));
 
 
     const plantsArray = [
@@ -278,6 +277,7 @@ function ProductList({ onHomeClick }) {
             [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
         };
+    
 
     return (
         <div>
@@ -302,11 +302,11 @@ function ProductList({ onHomeClick }) {
             {!showCart ? (
                 <div className="product-grid">
                     {plantsArray.map((category, index) => ( // Loop through each category in plantsArray
-                <div key={index}> {/* Unique key for each category div */}
+                <div key={index}> 
                     <h1 className='category-title'>
                     <div>{category.category}</div> {/* Display the category name */}
                     </h1>
-                    <div className="product-list"> {/* Container for the list of plant cards */}
+                    <div className="product-list"> 
                     {category.plants.map((plant, plantIndex) => ( // Loop through each plant in the current category
                         <div className="product-card" key={plantIndex}> {/* Unique key for each plant card */}
                         <img 
@@ -320,12 +320,13 @@ function ProductList({ onHomeClick }) {
                         <div className="product-cost">{plant.cost}</div> {/* Display plant cost */}
                         <button
                             className="product-button"
+                            disabled={cartItemNames.has(plant.name)}
                             onClick={() => {
                                 handleAddToCart(plant);
                                 
                                 }} // Handle adding plant to cart
                         >
-                            Add to Cart
+                            {cartItemNames.has(plant.name) ? "Plant added" : "Add To Cart"}
                         </button>
                         </div>
                     ))}
